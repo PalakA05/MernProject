@@ -5,8 +5,13 @@ const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const authenticate = require("./middleware/authenticate");
+const router = express.Router();
+const authenticate = require("./middleware/authenticate")
 
 const app = express();
+// router.use("/auth",authRoutes);
+
+router.use(authenticate.verifyToken);
 
 //Configure ENV File and Require Connection File
 dotenv.config({path: './config.env'});

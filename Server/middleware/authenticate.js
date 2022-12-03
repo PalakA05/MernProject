@@ -1,28 +1,34 @@
 //Authentication is the middle ware here abd will be checked before response
+const jwt = require("jsonwebtoken");
 
-const Users = require("../models/userSchema");
-
-const authenticate = async (req,res) => {
-    try {
-        //Get the Cookies
-        const token = req.cookies.jwt;
-        if(!token){
-            res.status(401).send("no token");
-        }else{
-            const verifyToken = jwt.verify(token, process.env.SECRET_KEY);
-            const rootUser = await Users.findOne({_id : verifyToken._id, "tokens.token" : token});
-
-            if(!rootUser)
-            {
-                res.status(401).send("User Not Found")
-            }else{
-                res.status(200).send("Authorized User");
-            }
-        }
-
-        next()
-    } catch (error) {
-        res.status(401).send(error);
-        console.log(error);
+exports.verifyToken = (req, res, next) => {
+  try {
+    let token = req.headers.authorization;
+    if (token) {
+      token = token.split(" ")[1];
+      let user = jwt.verify(token, process.env.SECRET_KEY);
+      if (user) {
+        req.userId = user.userId;
+      } else {
+        res.send({
+          statusCode: 401,
+          message: "Unauthorised access, invalid token",
+        });
+      }
+    } else {
+      res.send({
+        statusCode: 401,
+        message: "Unauthorised access",
+        error: true,
+      });
     }
-}
+    next();
+  } catch (error) {
+    res.send({
+      statusCode: 400,
+      message: error.message,
+      error: true,
+      data: null,
+    });
+  }
+};
