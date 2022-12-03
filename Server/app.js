@@ -4,6 +4,7 @@ const express = require("express");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
+const authenticate = require("./middleware/authenticate");
 
 const app = express();
 
@@ -14,6 +15,7 @@ const port = process.env.PORT;
 
 //Require model
 const Users = require("./models/userSchema");
+const Message = require("./models/msgSchema");
 
 //These methods are used to get data and cookies from frontend
 app.use(express.json());
@@ -81,6 +83,40 @@ app.post('/login', async(req,res) => {
     } catch (error) {
         res.status(400).send(error);
     }
+})
+
+//Message
+app.post('/message',async (req, res) => {
+    try{
+        //Get body or Data
+        const username = req.body.username;
+        const email = req.body.email;
+        const message = req.body.message;
+
+        const createUsesendMsg = new Message({
+            username : username,
+            email : email,
+            message : message,
+        });
+
+        
+        const created = await createUsesendMsg.save();
+        console.log(created);
+        res.status(200).send("Sent");
+    } catch (error) {
+        res.status(400).send(error);
+    }
+})
+
+//Log Out page
+app.get("/logout", (req,res) =>{
+    res.clearCookie("jwt", {path: '/'})
+    res.status(200).send("User Logged Out")
+})
+
+//Authentication
+app.get('/auth', authenticate, (req, res) => {
+
 })
 
 //Run Server
