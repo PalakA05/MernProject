@@ -12,7 +12,7 @@ const Navbar = (props) => {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <NavLink className="nav-link" aria-current="page" to="/">Home</NavLink>
+                                <NavLink to="/" className="nav-link" >Home</NavLink>
                             </li>
                             <li className="nav-item">
                                 <NavLink className="nav-link" to="/about">About</NavLink>
@@ -28,7 +28,7 @@ const Navbar = (props) => {
 
                         {props.auth ?
                         <>
-                        <NavLink className="btn btn-outline-primary ms-auto px-4 py-2 rounded-pill" to="/login">
+                        <NavLink className="btn btn-outline-primary px-4 py-2 rounded-pill" to="/login">
                             <i className="fa fa-sign-in me-2"></i> Login</NavLink>
                         <NavLink className="btn btn-outline-primary ms-2 px-4 py-2 rounded-pill" to="/register">
                             <i className="fa fa-user-plus me-2"></i> Register</NavLink>

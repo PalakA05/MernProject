@@ -1,7 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
 import { useHistory } from 'react-router-dom';
-import Home from "./Home";
 
 const Logout = () => {
 
@@ -22,7 +21,7 @@ const Logout = () => {
             {
                 window.alert("Please Logout Later");
             }else{
-                navigate.push('/');
+                navigate("/login")
                 window.location.reload()
             }
         } catch (error) {
@@ -36,7 +35,6 @@ const Logout = () => {
 
     return (
         <div>
-            <Home />
         </div>
     );
 }

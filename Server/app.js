@@ -2,8 +2,13 @@
 const dotenv = require ("dotenv");
 const express = require("express");
 const bcryptjs = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 const cookieParser = require("cookie-parser");
+
+//Require model
+const Users = require("./models/userSchema");
+const Message = require("./models/msgSchema");
+const authenticate = require("./middleware/authenticate")
 
 const app = express();
 
@@ -11,11 +16,6 @@ const app = express();
 dotenv.config({path: './config.env'});
 require('./db/conn');
 const port = process.env.PORT;
-
-//Require model
-const Users = require("./models/userSchema");
-const Message = require("./models/msgSchema");
-const authenticate = require("./middleware/authenticate")
 
 //These methods are used to get data and cookies from frontend
 app.use(express.json());
@@ -118,6 +118,6 @@ app.get("/logout", (req,res) =>{
 app.get('/auth', authenticate, (req, res) =>{})
 
 //Run Server
-app.listen(3001, () => {
+app.listen(port, () => {
     console.log("Server is Listening");
 })
