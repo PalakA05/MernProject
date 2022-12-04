@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const Register = () => {
 
-    const navigate = useNavigate();
+    const navigate = useHistory();
 
     const [user, setUser] = useState({
         username :"",

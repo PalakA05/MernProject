@@ -7,7 +7,7 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Login from './components/Login';
 import Register from './components/Register';
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Logout from './components/Logout';
 import ProtectedRoutes from './components/ProtectedRoutes';
 import { useEffect, useState } from 'react';
@@ -30,12 +30,12 @@ function App() {
 
       if(res.status === 200){
         setauth(true)
-        setauth(false)
+        setauth1(false)
       }
 
       if(res.status === 401){
         setauth(false)
-        setauth(true)
+        setauth1(true)
       }
 
     } catch (error) {
@@ -50,16 +50,16 @@ function App() {
   return (
     <div>
       <Router>
-       <Navbar />
-       <Routes>
-        <Route exact path='/' element = {<Home/>} />
-        <Route exact path='/about' element= {<About/>} />
-        <Route exact path='/services' element= {<Services/>} />
-        <Route exact path='/contact' element= {<Contact/>} />
-        <ProtectedRoutes exact path='/login' element= {<Login/>} auth = {auth} />
-        <ProtectedRoutes exact path='/register' element= {<Register/>} auth = {auth} />
-        <ProtectedRoutes exact path='/logout' element= {<Logout/>} auth = {auth1} />
-       </Routes>
+       <Navbar auth = {auth1}/>
+       <Switch>
+        <Route exact path='/' component = {Home} />
+        <Route exact path='/about' component= {About} />
+        <Route exact path='/services' component= {Services} />
+        <Route exact path='/contact' component= {Contact} />
+        <ProtectedRoutes exact path='/login' component= {Login} auth = {auth1} />
+        <ProtectedRoutes exact path='/register' component= {Register} auth = {auth1} />
+        <ProtectedRoutes exact path='/logout' component= {Logout} auth = {auth} />
+       </Switch>
        <Footer /> 
       </Router>
     </div>

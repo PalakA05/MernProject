@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import {NavLink} from 'react-router-dom';
+import {NavLink, useHistory} from 'react-router-dom';
 
 const Login = () => {
+
+    const history = useHistory();
 
     const [user, setuser] = useState({
         email: "",
@@ -37,7 +39,8 @@ const Login = () => {
             }else{
                 //you need to restart the server for proxy to work
                 window.alert("Login Successfully")
-                window.location.reload();
+                window.location.reload()
+                history.pushState('/')
             }
         }
         catch(error){

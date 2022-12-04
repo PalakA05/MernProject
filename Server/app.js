@@ -4,14 +4,8 @@ const express = require("express");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
-const authenticate = require("./middleware/authenticate");
-const router = express.Router();
-const authenticate = require("./middleware/authenticate")
 
 const app = express();
-// router.use("/auth",authRoutes);
-
-router.use(authenticate.verifyToken);
 
 //Configure ENV File and Require Connection File
 dotenv.config({path: './config.env'});
@@ -21,6 +15,7 @@ const port = process.env.PORT;
 //Require model
 const Users = require("./models/userSchema");
 const Message = require("./models/msgSchema");
+const authenticate = require("./middleware/authenticate")
 
 //These methods are used to get data and cookies from frontend
 app.use(express.json());
@@ -71,7 +66,7 @@ app.post('/login', async(req,res) => {
             if(isMatch){
                 //Generate Token Which is Define in User Schema
                 const token = await user.generateToken();
-                res.cookie("jwt", token , {
+                res.cookie('jwt', token , {
                     //Expire token in 24 hours
                     expires : new Date(Date.now() + 86400000),
                     httpOnly : true
@@ -98,14 +93,14 @@ app.post('/message',async (req, res) => {
         const email = req.body.email;
         const message = req.body.message;
 
-        const createUsesendMsg = new Message({
+        const sendMsg = new Message({
             username : username,
             email : email,
             message : message,
         });
 
         
-        const created = await createUsesendMsg.save();
+        const created = await sendMsg.save();
         console.log(created);
         res.status(200).send("Sent");
     } catch (error) {
@@ -115,14 +110,12 @@ app.post('/message',async (req, res) => {
 
 //Log Out page
 app.get("/logout", (req,res) =>{
-    res.clearCookie("jwt", {path: '/'})
+    res.clearCookie('jwt', {path: '/'})
     res.status(200).send("User Logged Out")
 })
 
 //Authentication
-app.get('/auth', authenticate, (req, res) => {
-
-})
+app.get('/auth', authenticate, (req, res) =>{})
 
 //Run Server
 app.listen(3001, () => {
