@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import {NavLink, useHistory} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
 
@@ -40,7 +41,7 @@ const Login = () => {
                 //you need to restart the server for proxy to work
                 window.alert("Login Successfully")
                 window.location.reload()
-                history.pushState('/')
+                history.push('/')
             }
         }
         catch(error){

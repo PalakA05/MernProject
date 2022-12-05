@@ -8,7 +8,7 @@ const Logout = () => {
 
     const logout = async () => {
         try {
-            const res = await fetch("/logout", {
+            const res = await fetch('/logout', {
                 method: "GET",
                 headers: {
                     Accept : "application/json",
@@ -21,7 +21,7 @@ const Logout = () => {
             {
                 window.alert("Please Logout Later");
             }else{
-                navigate("/login")
+                navigate.push('/');
                 window.location.reload()
             }
         } catch (error) {
@@ -35,6 +35,7 @@ const Logout = () => {
 
     return (
         <div>
+            
         </div>
     );
 }

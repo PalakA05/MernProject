@@ -1,7 +1,8 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink,useHistory } from 'react-router-dom';
 
 const Navbar = (props) => {
+    const nav = useHistory();
     return (
         <div>
             <nav className="navbar navbar-expand-md shadow">
@@ -26,19 +27,19 @@ const Navbar = (props) => {
                         </ul>
                         <NavLink className="navbar-brand fw-bolder fs-4 mx-auto" to="/">My Website</NavLink>
 
-                        {props.auth ?
-                        <>
+                       {props.auth ?
+                        <div>
                         <NavLink className="btn btn-outline-primary px-4 py-2 rounded-pill" to="/login">
                             <i className="fa fa-sign-in me-2"></i> Login</NavLink>
                         <NavLink className="btn btn-outline-primary ms-2 px-4 py-2 rounded-pill" to="/register">
                             <i className="fa fa-user-plus me-2"></i> Register</NavLink>
-                        </>
+                        </div>
                          :
-                        <>
-                        <NavLink className="btn btn-outline-primary ms-2 px-4 py-2 rounded-pill" to="/logout">
+                        <div>
+                        <NavLink className="btn btn-outline-primary ms-2 px-4 py-2 rounded-pill" to="/logout" onClick={nav.push('/')}>
                             <i className="fa fa-sign-out me-2"></i> Logout</NavLink>
-                        </>
-                        }
+                        </div>
+                      }
                     </div>
                 </div>
             </nav>

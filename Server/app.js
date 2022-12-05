@@ -109,7 +109,7 @@ app.post('/message',async (req, res) => {
 })
 
 //Log Out page
-app.get("/logout", (req,res) =>{
+app.get('/logout', (req,res) =>{
     res.clearCookie('jwt', {path: '/'})
     res.status(200).send("User Logged Out")
 })

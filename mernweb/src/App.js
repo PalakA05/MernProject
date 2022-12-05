@@ -7,7 +7,7 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Login from './components/Login';
 import Register from './components/Register';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Logout from './components/Logout';
 import ProtectedRoutes from './components/ProtectedRoutes';
 import { useEffect, useState } from 'react';
@@ -49,7 +49,7 @@ function App() {
 
   return (
     <div>
-      <Router>
+    <BrowserRouter>
        <Navbar auth = {auth1}/>
        <Switch>
         <Route exact path='/' component = {Home} />
@@ -61,7 +61,7 @@ function App() {
         <ProtectedRoutes exact path='/logout' component= {Logout} auth = {auth} />
        </Switch>
        <Footer /> 
-      </Router>
+     </BrowserRouter>
     </div>
   );
 }
